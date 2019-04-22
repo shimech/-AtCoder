@@ -16,6 +16,13 @@ int main() {
         }
         else {}
     }
-    cout << (N + min - 1) / min + 4 << endl;
+    long t;
+    if (N % min == 0) {
+        t = N / min + 4;
+    }
+    else {
+        t = N / min + 5;
+    }
+    cout << t << endl;
     return 0;
 }
