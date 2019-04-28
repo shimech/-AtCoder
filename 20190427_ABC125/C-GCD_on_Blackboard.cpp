@@ -6,15 +6,15 @@ int gcd(int a, int b);
 int main() {
     int N; cin >> N;
     int A[N]; for (int i = 0; i < N; i++) cin >> A[i];
-    int left, right, max = 0;
+    int left, right, max_gcd = 0;
     for (int n = 0; n < N; n++) {
         left = 0;
         right = 0;
         for (int i = 0; i < n; i++) left = gcd(left, A[i]);
         for (int i = N-1; i > n; i--) right = gcd(right, A[i]);
-        if (gcd(left, right) > max) max = gcd(left, right);
+        max_gcd = max(max_gcd, gcd(left, right));
     }
-    cout << max << endl;
+    cout << max_gcd << endl;
 }
 
 int gcd(int a, int b) {
