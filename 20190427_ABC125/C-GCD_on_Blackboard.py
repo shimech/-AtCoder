@@ -1,24 +1,18 @@
-import fractions
-from functools import reduce
-from copy import copy
+from fractions import gcd
 
 
 def main():
     N = int(input())
     A = list(map(int, input().split()))
+    left = [0] * N
+    right = [0] * N
+    for i in range(1, N):
+        left[i] = gcd(left[i-1], A[i-1])
+        right[-1-i] = gcd(right[-i], A[-i])
     gcds = []
     for i in range(N):
-        if i == 0:
-            gcds.append(gcd(*A[i+1:]))
-        elif i == N-1:
-            gcds.append(gcd(*A[:i]))
-        else:
-            gcds.append(gcd(gcd(*A[:i]), gcd(*A[i+1:])))
+        gcds.append(gcd(left[i], right[i]))
     print(max(gcds))
-
-
-def gcd(*nums):
-    return reduce(fractions.gcd, nums)
 
 
 if __name__ == '__main__':
