@@ -8,9 +8,12 @@ def main():
     A = list(map(int, input().split()))
     gcds = []
     for i in range(N):
-        A_ = copy(A)
-        A_.pop(i)
-        gcds.append(gcd(*A_))
+        if i == 0:
+            gcds.append(gcd(*A[i+1:]))
+        elif i == N-1:
+            gcds.append(gcd(*A[:i]))
+        else:
+            gcds.append(gcd(gcd(*A[:i]), gcd(*A[i+1:])))
     print(max(gcds))
 
 
