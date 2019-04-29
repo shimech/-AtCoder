@@ -1,22 +1,16 @@
 def main():
     N = int(input())
     S = input()
-    nums = []
-    for b in range(N+1):
-        nums.append(num_change(S, b, N))
-    print(min(nums))
-
-
-def num_change(S, border, N):
-    count = 0
-    for i in range(N):
-        if i < border:
-            if S[i] == '#':
-                count += 1
+    left_black = 0
+    right_white = S.count('.')
+    min_change = left_black + right_white
+    for s in S:
+        if s == '#':
+            left_black += 1
         else:
-            if S[i] == '.':
-                count += 1
-    return count
+            right_white -= 1
+        min_change = min(min_change, left_black + right_white)
+    print(min_change)
 
 
 if __name__ == '__main__':
