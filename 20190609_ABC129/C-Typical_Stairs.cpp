@@ -1,65 +1,29 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-long factorial(long n) {
-    if (n == 0) return 1;
-    else return n * factorial(n - 1);
-}
-
-long comb(long n, long r) {
-    return factorial(n) / (factorial(r) * factorial(n - r));
-}
+const long MOD = 1e9 + 7;
 
 int main() {
-    const long MOD = 1000000007;
-    long N, M; cin >> N >> M;
-    long a_begin = -1, a_end, ans = 1, cand, num_stair;
+    int N, M; cin >> N >> M;
+    vector<bool> ok_step(N+1, true);
+    int a;
     for (int i = 0; i < M; i++) {
-        cin >> a_end;
-        num_stair = a_end - a_begin - 1;
-        cand = 0;
-        if (a_end == 1) {
-            cand = 1;
-        }
-        else if (num_stair == 0) {
-            ans *= 0;
-        }
-        else if (num_stair % 2 == 0) {
-            for (long y = 0; y <= num_stair / 2 - 1; y++) {
-                long x = num_stair - 1 - 2 * y;
-                cand += comb(x + y, y);
+        cin >> a;
+        ok_step[a] = false;
+    }
+    vector<long> dp(N+1, 0);
+    dp[0] = 1;
+    for (int n = 1; n <= N; n++) {
+        if (ok_step[n]) {
+            if (n == 1) dp[n] = 1;
+            else dp[n] = (dp[n-1] + dp[n-2]) % MOD;
+            if (dp[n] == 0) {
+                dp[N] = 0;
+                break;
             }
         }
-        else {
-            for (long y = 0; y <= (num_stair - 1) / 2; y++) {
-                long x = num_stair - 1 - 2 * y;
-                cand += comb(x + y, y);
-            }
-        }
-        ans %= MOD;
-        ans *= (cand % MOD);
-        a_begin = a_end;
     }
-    a_end = N + 1;
-    num_stair = a_end - a_begin - 1;
-    cand = 0;
-    if (num_stair == 0) {
-        ans *= 0;
-    }
-    else if (num_stair % 2 == 0) {
-        for (long y = 0; y <= num_stair / 2 - 1; y++) {
-            long x = num_stair - 1 - 2 * y;
-            cand += comb(x + y, y);
-        }
-    }
-    else {
-        for (long y = 0; y <= (num_stair - 1) / 2; y++) {
-            long x = num_stair - 1 - 2 * y;
-            cand += comb(x + y, y);
-        }
-    }
-    ans %= MOD;
-    ans *= (cand % MOD);
-    cout << ans % MOD << endl;
+    cout << dp[N] << endl;
     return 0;
 }
