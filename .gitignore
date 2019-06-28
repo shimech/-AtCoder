@@ -1,4 +1,6 @@
 .DS_Store
+.python-version
+AtCoderEnv
 
 20190309_ABC121/A-White_Cells
 20190309_ABC121/B-Can_you_solve_this?
