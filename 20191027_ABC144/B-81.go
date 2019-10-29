@@ -1,18 +1,13 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
 )
 
-var sc = bufio.NewScanner(os.Stdin)
-
 func main() {
-	sc.Scan()
-	N, _ := strconv.Atoi(sc.Text())
-	var isYes = false
+	var N int
+	fmt.Scan(&N)
+	var isYes bool = false
 	for i := 1; i <= 9; i++ {
 		q, r := N/i, N%i
 		if (q >= 1 && q <= 9) && r == 0 {
